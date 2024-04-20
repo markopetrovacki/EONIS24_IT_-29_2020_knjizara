@@ -77,3 +77,5 @@ C:\Users\user\Desktop\KnjizaraProjekat\KnjizaraBackend\KnjizaraBackend\obj\Debug
 C:\Users\user\Desktop\KnjizaraProjekat\KnjizaraBackend\KnjizaraBackend\obj\Debug\net7.0\KnjizaraBackend.pdb
 C:\Users\user\Desktop\KnjizaraProjekat\KnjizaraBackend\KnjizaraBackend\obj\Debug\net7.0\KnjizaraBackend.genruntimeconfig.cache
 C:\Users\user\Desktop\KnjizaraProjekat\KnjizaraBackend\KnjizaraBackend\obj\Debug\net7.0\ref\KnjizaraBackend.dll
+C:\Users\user\Desktop\KnjizaraProjekat\KnjizaraBackend\KnjizaraBackend\obj\Debug\net7.0\KnjizaraBackend.sourcelink.json
+C:\Users\user\Desktop\KnjizaraProjekat\KnjizaraBackend\KnjizaraBackend\bin\Debug\net7.0\Sieve.dll

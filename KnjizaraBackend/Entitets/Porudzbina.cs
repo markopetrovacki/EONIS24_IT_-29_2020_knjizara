@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Sieve.Attributes;
+using System.ComponentModel.DataAnnotations;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Knjizara.Entitets
@@ -8,14 +9,14 @@ namespace Knjizara.Entitets
 
         [Key]
         [Required]
-        public Guid id_porudzbina {  get; set; }      
-        public DateTime datum_kreiranja {  get; set; }
-        public int ukupna_cena {  get; set; } 
-	    public string status_porudzbine {  get; set; }
-	    public string status_placanja { get; set; }
-	    public string dobavljac {  get; set; }
-        public int broj_posiljke {  get; set; }
-        public DateTime rok_isporuke { get; set; }
+        public Guid id_porudzbina {  get; set; }
+        [Sieve(CanFilter = true, CanSort = true)] public DateTime datum_kreiranja {  get; set; }
+        [Sieve(CanFilter = true, CanSort = true)] public int ukupna_cena {  get; set; }
+        [Sieve(CanFilter = true, CanSort = true)] public string status_porudzbine {  get; set; }
+        [Sieve(CanFilter = true, CanSort = true)] public string status_placanja { get; set; }
+        [Sieve(CanFilter = true, CanSort = true)] public string dobavljac {  get; set; }
+        [Sieve(CanFilter = true, CanSort = true)] public int broj_posiljke {  get; set; }
+        [Sieve(CanFilter = true, CanSort = true)] public DateTime rok_isporuke { get; set; }
         public Guid id_korisnik { get; set; }
         public Guid id_dostava { get; set; }
 

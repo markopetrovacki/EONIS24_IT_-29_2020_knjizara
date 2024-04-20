@@ -5,6 +5,8 @@ using Knjizara.Entitets.Confirmation;
 using Knjizara.Models.Dobavljac;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
+using Sieve.Models;
+using Sieve.Services;
 
 namespace Knjizara.Controllers
 {
@@ -16,20 +18,22 @@ namespace Knjizara.Controllers
         private readonly IMapper mapper;
         private readonly IDobavljacRepository dobavljacRepository;
         private readonly LinkGenerator linkGenerator;
+        private readonly SieveProcessor sieveProcessor;
 
-        public DobavljacController(IMapper mapper, IDobavljacRepository dobavljacRepository, LinkGenerator linkGenerator)
+        public DobavljacController(IMapper mapper, IDobavljacRepository dobavljacRepository, LinkGenerator linkGenerator, SieveProcessor sieveProcessor)
         {
             this.mapper = mapper;
             this.dobavljacRepository = dobavljacRepository;
             this.linkGenerator = linkGenerator;
+            this.sieveProcessor = sieveProcessor;
         }
-        
+
 
         [HttpGet]
         [HttpHead] //Podržavamo i HTTP head zahtev koji nam vraća samo zaglavlja u odgovoru    
         [ProducesResponseType(StatusCodes.Status200OK)] //Eksplicitno definišemo šta sve može ova akcija da vrati
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        public ActionResult<List<Dobavljac>> GetDobavljac()
+        public ActionResult<List<Dobavljac>> GetDobavljac([FromQuery] SieveModel model)
         {
             List<Dobavljac> dobavljac = dobavljacRepository.GetDobavljac();
             if (dobavljac == null || dobavljac.Count == 0)
@@ -37,7 +41,9 @@ namespace Knjizara.Controllers
                // await loggerService.Log(LogLevel.Warning, "GetProductBacklogs", "Product backlog not found.");
                 NoContent();
             }
-          //  Console.WriteLine(await loggerService.Log(LogLevel.Information, "GetProductBacklogs", "Product backlog successfully returned."));
+            //  Console.WriteLine(await loggerService.Log(LogLevel.Information, "GetProductBacklogs", "Product backlog successfully returned."));
+
+            dobavljac = sieveProcessor.Apply<Dobavljac>(model, dobavljac.AsQueryable()).ToList();
             return Ok(mapper.Map<List<DobavljacDto>>(dobavljac));
         }
 

@@ -1,6 +1,7 @@
 using Knjizara.Data;
 using Knjizara.Entitets;
 using Microsoft.EntityFrameworkCore;
+using Sieve.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = new ConfigurationBuilder()
@@ -29,6 +30,8 @@ builder.Services.AddDbContext<KnjizaraDBContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("KnjizaraDBConnection"))
     .LogTo(Console.WriteLine, LogLevel.Information);
 });
+
+builder.Services.AddSingleton<SieveProcessor>();
 
 builder.Services.AddScoped<IDobavljacRepository, DobavljacRepository>();
 builder.Services.AddScoped<IDostavaRepository, DostavaRepository>();

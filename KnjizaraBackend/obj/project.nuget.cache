@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "c0V4NTj/Kydy6on+Wc8183hS1hPSmKw9iOpRztfMjjgLjb9ZL+pgU4Iy04ZNH3w+MtdC62JjZ/5KQCBLurINTg==",
+  "dgSpecHash": "/CEFEWfd27TwmhR9Dgqm9KfczMNb2RHb9tCXaSTqsENKabTswOKz/4maxrnObHvr8xOHz5Q5oGR4TH2B7X/DVg==",
   "success": true,
   "projectFilePath": "C:\\Users\\user\\Desktop\\KnjizaraProjekat\\KnjizaraBackend\\KnjizaraBackend\\KnjizaraBackend.csproj",
   "expectedPackageFiles": [
@@ -58,11 +58,13 @@
     "C:\\Users\\user\\.nuget\\packages\\microsoft.win32.systemevents\\6.0.0\\microsoft.win32.systemevents.6.0.0.nupkg.sha512",
     "C:\\Users\\user\\.nuget\\packages\\mono.texttemplating\\2.2.1\\mono.texttemplating.2.2.1.nupkg.sha512",
     "C:\\Users\\user\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
+    "C:\\Users\\user\\.nuget\\packages\\sieve\\2.5.5\\sieve.2.5.5.nupkg.sha512",
     "C:\\Users\\user\\.nuget\\packages\\swashbuckle.aspnetcore\\6.5.0\\swashbuckle.aspnetcore.6.5.0.nupkg.sha512",
     "C:\\Users\\user\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.5.0\\swashbuckle.aspnetcore.swagger.6.5.0.nupkg.sha512",
     "C:\\Users\\user\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.5.0\\swashbuckle.aspnetcore.swaggergen.6.5.0.nupkg.sha512",
     "C:\\Users\\user\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\6.5.0\\swashbuckle.aspnetcore.swaggerui.6.5.0.nupkg.sha512",
     "C:\\Users\\user\\.nuget\\packages\\system.codedom\\4.4.0\\system.codedom.4.4.0.nupkg.sha512",
+    "C:\\Users\\user\\.nuget\\packages\\system.componentmodel.annotations\\4.4.1\\system.componentmodel.annotations.4.4.1.nupkg.sha512",
     "C:\\Users\\user\\.nuget\\packages\\system.configuration.configurationmanager\\6.0.1\\system.configuration.configurationmanager.6.0.1.nupkg.sha512",
     "C:\\Users\\user\\.nuget\\packages\\system.diagnostics.diagnosticsource\\6.0.0\\system.diagnostics.diagnosticsource.6.0.0.nupkg.sha512",
     "C:\\Users\\user\\.nuget\\packages\\system.drawing.common\\6.0.0\\system.drawing.common.6.0.0.nupkg.sha512",

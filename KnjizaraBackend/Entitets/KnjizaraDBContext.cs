@@ -35,6 +35,7 @@ namespace Knjizara.Entitets
 
             modelBuilder.Entity<PorudzbinaKnjiga>()
                 .HasKey(pk => new {pk.id_knjige, pk.id_porudzbina});
+           
             modelBuilder.Entity<PorudzbinaKnjiga>()
                 .ToTable(tb => tb.HasTrigger("stanje_na_lageru"));
         }

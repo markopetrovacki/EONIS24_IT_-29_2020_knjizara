@@ -6,6 +6,8 @@ using Knjizara.Models.Dobavljac;
 using Knjizara.Models.Dostava;
 using Knjizara.Models.PorudzbinaKnjiga;
 using Microsoft.AspNetCore.Mvc;
+using Sieve.Models;
+using Sieve.Services;
 
 namespace Knjizara.Controllers
 {
@@ -17,20 +19,22 @@ namespace Knjizara.Controllers
         private readonly IMapper mapper;
         private readonly IPorudzbinaKnjigaRepository porudzbinaKnjigaRepository;
         private readonly LinkGenerator linkGenerator;
+        private readonly SieveProcessor sieveProcessor;
 
 
-        public PorudzbinaKnjigaController(IMapper mapper, IPorudzbinaKnjigaRepository porudzbinaKnjigaRepository, LinkGenerator linkGenerator)
+        public PorudzbinaKnjigaController(IMapper mapper, IPorudzbinaKnjigaRepository porudzbinaKnjigaRepository, LinkGenerator linkGenerator, SieveProcessor sieveProcessor)
         {
             this.mapper = mapper;
             this.porudzbinaKnjigaRepository = porudzbinaKnjigaRepository;
             this.linkGenerator = linkGenerator;
+            this.sieveProcessor = sieveProcessor;
         }
 
         [HttpGet]
         [HttpHead] //Podržavamo i HTTP head zahtev koji nam vraća samo zaglavlja u odgovoru    
         [ProducesResponseType(StatusCodes.Status200OK)] //Eksplicitno definišemo šta sve može ova akcija da vrati
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        public async Task<ActionResult<List<PorudzbinaKnjiga>>> GetPorudzbinaKnjiga()
+        public async Task<ActionResult<List<PorudzbinaKnjiga>>> GetPorudzbinaKnjiga([FromQuery] SieveModel model)
         {
             List<PorudzbinaKnjiga> porudzbinaKnjiga = porudzbinaKnjigaRepository.GetPorudzbinaKnjiga();
             if (porudzbinaKnjiga == null || porudzbinaKnjiga.Count == 0)
@@ -38,6 +42,7 @@ namespace Knjizara.Controllers
                 NoContent();
             }
 
+            porudzbinaKnjiga = sieveProcessor.Apply<PorudzbinaKnjiga>(model, porudzbinaKnjiga.AsQueryable()).ToList();
             return Ok(mapper.Map<List<PorudzbinaKnjigaDto>>(porudzbinaKnjiga));
         }
 

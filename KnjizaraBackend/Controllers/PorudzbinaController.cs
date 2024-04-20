@@ -7,6 +7,8 @@ using Knjizara.Models.Dostava;
 using Knjizara.Models.Korisnik;
 using Knjizara.Models.Porudzbina;
 using Microsoft.AspNetCore.Mvc;
+using Sieve.Models;
+using Sieve.Services;
 
 namespace Knjizara.Controllers
 {
@@ -18,27 +20,30 @@ namespace Knjizara.Controllers
         private readonly IMapper mapper;
         private readonly IPorudzbinaRepository porudzbinaRepository;
         private readonly LinkGenerator linkGenerator;
+        private readonly SieveProcessor sieveProcessor;
 
 
-        public PorudzbinaController(IMapper mapper, IPorudzbinaRepository porudzbinaRepository, LinkGenerator linkGenerator)
+        public PorudzbinaController(IMapper mapper, IPorudzbinaRepository porudzbinaRepository, LinkGenerator linkGenerator, SieveProcessor sieveProcessor)
         {
             this.mapper = mapper;
             this.porudzbinaRepository = porudzbinaRepository;
             this.linkGenerator = linkGenerator;
+            this.sieveProcessor = sieveProcessor;   
         }
 
         [HttpGet]
         [HttpHead] //Podržavamo i HTTP head zahtev koji nam vraća samo zaglavlja u odgovoru    
         [ProducesResponseType(StatusCodes.Status200OK)] //Eksplicitno definišemo šta sve može ova akcija da vrati
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        public async Task<ActionResult<List<Porudzbina>>> GetPorudzbina()
+        public async Task<ActionResult<List<Porudzbina>>> GetPorudzbina([FromQuery] SieveModel model)
         {
             List<Porudzbina> porudzbina = porudzbinaRepository.GetPorudzbina();
             if (porudzbina == null || porudzbina.Count == 0)
             {
                 NoContent();
             }
-           
+
+            porudzbina = sieveProcessor.Apply<Porudzbina>(model, porudzbina.AsQueryable()).ToList();
             return Ok(mapper.Map<List<PorudzbinaDto>>(porudzbina));
         }
 

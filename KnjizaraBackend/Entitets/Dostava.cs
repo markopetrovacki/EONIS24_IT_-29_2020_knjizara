@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Sieve.Attributes;
+using System.ComponentModel.DataAnnotations;
 
 namespace Knjizara.Entitets
 {
@@ -7,20 +8,20 @@ namespace Knjizara.Entitets
 
         [Key]
         [Required]
-        public Guid id_dostava {  get; set; } 
-    
-        public string adresa_dostave {  get; set; }
-        
-	    public DateTime datum_dostave { get; set; }
+        public Guid id_dostava {  get; set; }
 
-	    public string grad {  get; set; }
-	
-        public string drzava { get; set; }
+        [Sieve(CanFilter = true, CanSort = true)] public string adresa_dostave {  get; set; }
 
-	    public int postanski_broj {  get; set; }
-    
-        public int broj_telefona {  get; set; }
-	
-        public string ime {  get; set; }
+        [Sieve(CanFilter = true, CanSort = true)] public DateTime datum_dostave { get; set; }
+
+        [Sieve(CanFilter = true, CanSort = true)] public string grad {  get; set; }
+
+        [Sieve(CanFilter = true, CanSort = true)] public string drzava { get; set; }
+
+        [Sieve(CanFilter = true, CanSort = true)] public int postanski_broj {  get; set; }
+
+        [Sieve(CanFilter = true, CanSort = true)] public int broj_telefona {  get; set; }
+
+        [Sieve(CanFilter = true, CanSort = true)] public string ime {  get; set; }
     }
 }

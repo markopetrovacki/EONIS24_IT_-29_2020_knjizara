@@ -5,6 +5,8 @@ using Knjizara.Entitets.Confirmation;
 using Knjizara.Models.Dobavljac;
 using Knjizara.Models.Korisnik;
 using Microsoft.AspNetCore.Mvc;
+using Sieve.Models;
+using Sieve.Services;
 
 namespace Knjizara.Controllers
 {
@@ -16,20 +18,22 @@ namespace Knjizara.Controllers
         private readonly IMapper mapper;
         private readonly IKorisnikRepository korisnikRepository;
         private readonly LinkGenerator linkGenerator;
+        private readonly SieveProcessor sieveProcessor;
 
 
-        public KorsnikController(IMapper mapper, IKorisnikRepository korisnikRepository, LinkGenerator linkGenerator)
+        public KorsnikController(IMapper mapper, IKorisnikRepository korisnikRepository, LinkGenerator linkGenerator, SieveProcessor sieveProcessor)
         {
             this.mapper = mapper;
             this.korisnikRepository = korisnikRepository;
             this.linkGenerator = linkGenerator;
+            this.sieveProcessor = sieveProcessor;
         }
 
         [HttpGet]
         [HttpHead] //Podržavamo i HTTP head zahtev koji nam vraća samo zaglavlja u odgovoru    
         [ProducesResponseType(StatusCodes.Status200OK)] //Eksplicitno definišemo šta sve može ova akcija da vrati
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        public async Task<ActionResult<List<Korisnik>>> GetKorisnik()
+        public async Task<ActionResult<List<Korisnik>>> GetKorisnik([FromQuery] SieveModel model)
         {
             List<Korisnik> korisnik = korisnikRepository.GetKorisnik();
             if (korisnik == null || korisnik.Count == 0)
@@ -37,6 +41,7 @@ namespace Knjizara.Controllers
                 NoContent();
             }
 
+            korisnik = sieveProcessor.Apply<Korisnik>(model, korisnik.AsQueryable()).ToList();
             return Ok(mapper.Map<List<KorisnikDto>>(korisnik));
 
         }
