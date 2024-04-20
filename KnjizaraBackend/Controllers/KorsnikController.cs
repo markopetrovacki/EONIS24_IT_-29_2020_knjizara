@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
+using Azure.Core;
 using Knjizara.Data;
 using Knjizara.Entitets;
 using Knjizara.Entitets.Confirmation;
 using Knjizara.Models.Dobavljac;
 using Knjizara.Models.Korisnik;
+using Knjizara.Models.Porudzbina;
 using Microsoft.AspNetCore.Mvc;
 using Sieve.Models;
 using Sieve.Services;
@@ -76,14 +78,18 @@ namespace Knjizara.Controllers
                     return BadRequest(ModelState); // Vraćajte 400 Bad Request za validacione greške
                 }
 
+                string passwordHash = BCrypt.Net.BCrypt.HashPassword(korisnik.pasword);
+                korisnik.pasword = passwordHash;
 
                 Korisnik mappedKorisnik = mapper.Map<Korisnik>(korisnik);
-                KorisnikConfirmation confirmationKorisnik = korisnikRepository.AddKorisnik(mappedKorisnik);
+                KorisnikConfirmation confirmationKorisnik = korisnikRepository.AddKorisnik(mappedKorisnik);             
                 korisnikRepository.SaveChanges();
+                
 
-                string location = linkGenerator.GetPathByAction("GetKorisnikId", "Korisnik", new { id_korisnik = confirmationKorisnik.id_korisnik });
-
-                return Created(location, mapper.Map<KorisnikConfirmationDto>(confirmationKorisnik));
+                return Ok(confirmationKorisnik);
+               
+                /*string location = linkGenerator.GetPathByAction("GetKorisnikId", "Korisnik", new { id_korisnik = confirmationKorisnik.id_korisnik });
+                return Created(location, mapper.Map<KorisnikConfirmationDto>(confirmationKorisnik));*/
             }
             catch
             {
@@ -145,5 +151,22 @@ namespace Knjizara.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Update Error");
             }
         }
+
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [HttpGet("korisnik/{id_korisnik}")]
+        public ActionResult<Korisnik> GetKorisnikByUsernameAndPassword(string username, string password)
+        {
+            var korisnik = korisnikRepository.GetKorisnikByUsernameAndPassword(username, password);
+
+            if (korisnik == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(korisnik);
+        }
+
+
     }
 }

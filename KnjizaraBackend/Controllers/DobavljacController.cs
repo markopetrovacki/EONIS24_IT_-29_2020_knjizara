@@ -82,11 +82,12 @@ namespace Knjizara.Controllers
                 Dobavljac mappedDobavljac = mapper.Map<Dobavljac>(dobavljac);
                 DobavljacConfirmation confirmationDobavljac = dobavljacRepository.AddDobavljac(mappedDobavljac);
                 dobavljacRepository.SaveChanges();
-
-                string location = linkGenerator.GetPathByAction("GetDobavljacId", "Dobavljac", new { id_dobavljac = confirmationDobavljac.id_dobavljaca });
+                
+                return Ok(confirmationDobavljac);   
+                //string location = linkGenerator.GetPathByAction("GetDobavljacId", "DobavljacController", new { id_dobavljac = confirmationDobavljac.id_dobavljaca });
 
                 //await loggerService.Log(LogLevel.Information, "CreateProductBacklog", "Product backlog successfully created.");
-                return Created(location, mapper.Map<DobavljacConfirmationDto>(confirmationDobavljac));
+               // return Created(location, mapper.Map<DobavljacConfirmationDto>(confirmationDobavljac));
             }
             catch
             {

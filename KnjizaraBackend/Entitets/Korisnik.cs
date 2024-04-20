@@ -1,5 +1,6 @@
 ﻿using Sieve.Attributes;
 using System.ComponentModel.DataAnnotations;
+using System.Security.Permissions;
 
 namespace Knjizara.Entitets
 {
@@ -9,6 +10,8 @@ namespace Knjizara.Entitets
         [Key]
         [Required]
         public Guid id_korisnik {  get; set; }
+        public string username { get; set; } //= string.Empty;
+        public string pasword { get; set; } //= string.Empty;
 
         [Sieve(CanFilter = true, CanSort = true)] public string ime_korisnika {  get; set; }
 

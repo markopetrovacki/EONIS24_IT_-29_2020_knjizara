@@ -12,5 +12,7 @@ namespace Knjizara.Data
         public KorisnikConfirmation AddKorisnik(Korisnik korisnik);
         public Korisnik UpdateKorisnik(Korisnik korisnik);
         public bool SaveChanges();
+
+        public Korisnik GetKorisnikByUsernameAndPassword(string username, string password);
     }
 }

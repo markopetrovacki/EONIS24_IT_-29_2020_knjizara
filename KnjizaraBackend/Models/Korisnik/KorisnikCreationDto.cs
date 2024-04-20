@@ -2,6 +2,10 @@
 {
     public class KorisnikCreationDto
     {
+        public string username { get; set; }
+
+        public string pasword { get; set; }
+
         public string ime_korisnika { get; set; }
 
         public string prezime_korisnika { get; set; }

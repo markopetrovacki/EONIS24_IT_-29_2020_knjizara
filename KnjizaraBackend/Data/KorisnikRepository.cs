@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BCrypt.Net;
 using Knjizara.Entitets;
 using Knjizara.Entitets.Confirmation;
 using Knjizara.Models.Korisnik;
@@ -74,6 +75,24 @@ namespace Knjizara.Data
                 // Log the exception or handle it appropriately
                 throw new Exception("Error updating korisnik", ex);
             };
+        }
+
+        public Korisnik GetKorisnikByUsernameAndPassword(string username, string password)
+        {
+            List<Korisnik> korisnik = context.korisnik.ToList();
+           
+           for(int i = 0; i < korisnik.Count -1; i++)
+            {
+                if (korisnik[i].username == username) {
+                
+                    if (BCrypt.Net.BCrypt.Verify(password, korisnik[i].pasword))
+                    {
+                        return korisnik[i];
+                    }
+                }
+            }
+            return null;
+            //return context.korisnik.FirstOrDefault(e => e.username == username && BCrypt.Net.BCrypt.Verify(password, e.pasword));
         }
     }
 }

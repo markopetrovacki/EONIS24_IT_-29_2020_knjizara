@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("KnjizaraBackend")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+dfc5487b46330f2bdc92a42def66e37057485949")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4cf4fa9c4177835a3af09a492c881fa9bf6d3fdf")]
 [assembly: System.Reflection.AssemblyProductAttribute("KnjizaraBackend")]
 [assembly: System.Reflection.AssemblyTitleAttribute("KnjizaraBackend")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
