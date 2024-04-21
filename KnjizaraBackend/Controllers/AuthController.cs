@@ -50,7 +50,9 @@ namespace KnjizaraBackend.Controllers
         private string CreateToken(Korisnik korisnik)
         {
             List<Claim> claims = new List<Claim> {
-                new Claim(ClaimTypes.Name, korisnik.username)
+                new Claim(ClaimTypes.Name, korisnik.username),
+                new Claim(ClaimTypes.Role, korisnik.status_korisnika),
+              //  new Claim(ClaimTypes.Role, "User") "Admin"
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(

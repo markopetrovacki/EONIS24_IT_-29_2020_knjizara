@@ -5,6 +5,7 @@ using Knjizara.Entitets.Confirmation;
 using Knjizara.Models.Dobavljac;
 using Knjizara.Models.Knjiga;
 using Knjizara.Models.Porudzbina;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using Sieve.Models;
@@ -31,6 +32,7 @@ namespace Knjizara.Controllers
             this.sieveProcessor = sieveProcessor;
         }
 
+        [Authorize(Roles = "Admin,User")]
         [HttpGet]
         [HttpHead] //Podržavamo i HTTP head zahtev koji nam vraća samo zaglavlja u odgovoru    
         [ProducesResponseType(StatusCodes.Status200OK)] //Eksplicitno definišemo šta sve može ova akcija da vrati
@@ -47,7 +49,7 @@ namespace Knjizara.Controllers
             return Ok(mapper.Map<List<KnjigaDto>>(knjiga));
         }
 
-
+        [Authorize(Roles = "Admin,User")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [HttpGet("{id_knjige}")]
@@ -61,7 +63,7 @@ namespace Knjizara.Controllers
             return Ok(mapper.Map<KnjigaDto>(knjigaModel));
         }
 
-
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [Consumes("application/json")]
         [ProducesResponseType(StatusCodes.Status201Created)]
@@ -80,9 +82,9 @@ namespace Knjizara.Controllers
                 KnjigaConfirmation confirmationKnjiga = knjigaRepository.AddKnjiga(mappedKnjiga);
                 knjigaRepository.SaveChanges();
 
-                string location = linkGenerator.GetPathByAction("GetKnjigaId", "Knjiga", new { id_knjige = confirmationKnjiga.id_knjige });
-
-                return Created(location, mapper.Map<KnjigaConfirmationDto>(confirmationKnjiga));
+                return Ok(confirmationKnjiga);
+                //string location = linkGenerator.GetPathByAction("GetKnjigaId", "Knjiga", new { id_knjige = confirmationKnjiga.id_knjige });
+                //return Created(location, mapper.Map<KnjigaConfirmationDto>(confirmationKnjiga));
             }
             catch
             {
@@ -90,6 +92,7 @@ namespace Knjizara.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -114,6 +117,7 @@ namespace Knjizara.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPut]
         [Consumes("application/json")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -145,6 +149,7 @@ namespace Knjizara.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin,User")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [HttpGet("dobavljac/{id_dobavljac}")]

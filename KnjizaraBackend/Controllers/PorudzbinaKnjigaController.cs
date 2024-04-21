@@ -5,6 +5,7 @@ using Knjizara.Entitets.Confirmation;
 using Knjizara.Models.Dobavljac;
 using Knjizara.Models.Dostava;
 using Knjizara.Models.PorudzbinaKnjiga;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Sieve.Models;
 using Sieve.Services;
@@ -30,6 +31,7 @@ namespace Knjizara.Controllers
             this.sieveProcessor = sieveProcessor;
         }
 
+        [Authorize(Roles = "Admin,User")]
         [HttpGet]
         [HttpHead] //Podržavamo i HTTP head zahtev koji nam vraća samo zaglavlja u odgovoru    
         [ProducesResponseType(StatusCodes.Status200OK)] //Eksplicitno definišemo šta sve može ova akcija da vrati
@@ -46,6 +48,7 @@ namespace Knjizara.Controllers
             return Ok(mapper.Map<List<PorudzbinaKnjigaDto>>(porudzbinaKnjiga));
         }
 
+        [Authorize(Roles = "Admin,User")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [HttpGet("{id_knjige,id_porudzbina}")]
@@ -60,7 +63,7 @@ namespace Knjizara.Controllers
             return Ok(mapper.Map<PorudzbinaKnjigaDto>(porudzbinaKnjigaModel));
         }
 
-
+        [Authorize(Roles = "Admin,User")]
         [HttpPost]
         [Consumes("application/json")]
         [ProducesResponseType(StatusCodes.Status201Created)]
@@ -79,9 +82,9 @@ namespace Knjizara.Controllers
                 PorudzbinaKnjigaConfirmation confirmationPorudzbinaKnjiga = porudzbinaKnjigaRepository.AddPorudzbinaKnjiga(mappedPorudzbinaknjiga);
                 porudzbinaKnjigaRepository.SaveChanges();
 
-                string location = linkGenerator.GetPathByAction("GetPorudzbinaKnjigaId", "PorudzbinaKnjiga", new { id_knjige = confirmationPorudzbinaKnjiga.id_knjige , id_porudzbina = confirmationPorudzbinaKnjiga.id_porudzbina });
-
-                return Created(location, mapper.Map<PorudzbinaKnjigaConfirmationDto>(confirmationPorudzbinaKnjiga));
+                return Ok(confirmationPorudzbinaKnjiga);
+                //string location = linkGenerator.GetPathByAction("GetPorudzbinaKnjigaId", "PorudzbinaKnjiga", new { id_knjige = confirmationPorudzbinaKnjiga.id_knjige , id_porudzbina = confirmationPorudzbinaKnjiga.id_porudzbina });
+               // return Created(location, mapper.Map<PorudzbinaKnjigaConfirmationDto>(confirmationPorudzbinaKnjiga));
             }
             catch
             {
@@ -89,6 +92,7 @@ namespace Knjizara.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin,User")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]

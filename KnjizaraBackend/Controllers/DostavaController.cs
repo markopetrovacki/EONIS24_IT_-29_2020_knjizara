@@ -4,6 +4,7 @@ using Knjizara.Entitets;
 using Knjizara.Entitets.Confirmation;
 using Knjizara.Models.Dobavljac;
 using Knjizara.Models.Dostava;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using Sieve.Models;
@@ -30,6 +31,8 @@ namespace Knjizara.Controllers
             this.sieveProcessor = sieveProcessor;
         }
 
+
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         [HttpHead] //Podržavamo i HTTP head zahtev koji nam vraća samo zaglavlja u odgovoru    
         [ProducesResponseType(StatusCodes.Status200OK)] //Eksplicitno definišemo šta sve može ova akcija da vrati
@@ -46,7 +49,7 @@ namespace Knjizara.Controllers
             return Ok(mapper.Map<List<DostavaDto>>(dostava));
         }
 
-
+        [Authorize(Roles = "Admin")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [HttpGet("{id_dostava}")]
@@ -61,6 +64,7 @@ namespace Knjizara.Controllers
         
         }
 
+        [Authorize(Roles = "Admin,User")]
         [HttpPost]
         [Consumes("application/json")]
         [ProducesResponseType(StatusCodes.Status201Created)]
@@ -79,10 +83,9 @@ namespace Knjizara.Controllers
                 DostavaConfirmation confirmationDostava = dostavaRepository.AddDostava(mappedDostava);
                 dostavaRepository.SaveChanges();
 
-                string location = linkGenerator.GetPathByAction("GetDostavaId", "Dostava", new { id_dostava = confirmationDostava.id_dostava });
-
-                //await loggerService.Log(LogLevel.Information, "CreateProductBacklog", "Product backlog successfully created.");
-                return Created(location, mapper.Map<DostavaConfirmationDto>(confirmationDostava));
+                return Ok(confirmationDostava);
+                //string location = linkGenerator.GetPathByAction("GetDostavaId", "Dostava", new { id_dostava = confirmationDostava.id_dostava });
+                //return Created(location, mapper.Map<DostavaConfirmationDto>(confirmationDostava));
             }
             catch
             {
@@ -91,7 +94,7 @@ namespace Knjizara.Controllers
             }
         }
 
-
+        [Authorize(Roles = "Admin,User")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -116,6 +119,7 @@ namespace Knjizara.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin,User")]
         [HttpPut]
         [Consumes("application/json")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]

@@ -6,6 +6,7 @@ using Knjizara.Models.Dobavljac;
 using Knjizara.Models.Dostava;
 using Knjizara.Models.Korisnik;
 using Knjizara.Models.Porudzbina;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Sieve.Models;
 using Sieve.Services;
@@ -31,6 +32,7 @@ namespace Knjizara.Controllers
             this.sieveProcessor = sieveProcessor;   
         }
 
+        [Authorize(Roles = "Admin,User")]
         [HttpGet]
         [HttpHead] //Podržavamo i HTTP head zahtev koji nam vraća samo zaglavlja u odgovoru    
         [ProducesResponseType(StatusCodes.Status200OK)] //Eksplicitno definišemo šta sve može ova akcija da vrati
@@ -47,6 +49,7 @@ namespace Knjizara.Controllers
             return Ok(mapper.Map<List<PorudzbinaDto>>(porudzbina));
         }
 
+        [Authorize(Roles = "Admin,User")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [HttpGet("{id_porudzbina}")]
@@ -61,7 +64,7 @@ namespace Knjizara.Controllers
             return Ok(mapper.Map<PorudzbinaDto>(porudzbinaModel));
         }
 
-
+        [Authorize(Roles = "Admin,User")]
         [HttpPost]
         [Consumes("application/json")]
         [ProducesResponseType(StatusCodes.Status201Created)]
@@ -80,10 +83,9 @@ namespace Knjizara.Controllers
                 PorudzbinaConfirmation confirmationPorudzbina = porudzbinaRepository.AddPorudzbina(mappedPorudzbina);
                 porudzbinaRepository.SaveChanges();
 
-                string location = linkGenerator.GetPathByAction("GetPorudzbinaId", "Porudzbina", new { id_porudzbina = confirmationPorudzbina.id_porudzbina });
-
-                //await loggerService.Log(LogLevel.Information, "CreateProductBacklog", "Product backlog successfully created.");
-                return Created(location, mapper.Map<PorudzbinaConfirmationDto>(confirmationPorudzbina));
+                return Ok (confirmationPorudzbina);
+                //string location = linkGenerator.GetPathByAction("GetPorudzbinaId", "Porudzbina", new { id_porudzbina = confirmationPorudzbina.id_porudzbina });
+                //return Created(location, mapper.Map<PorudzbinaConfirmationDto>(confirmationPorudzbina));
             }
             catch
             {
@@ -91,6 +93,7 @@ namespace Knjizara.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin,User")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -115,6 +118,7 @@ namespace Knjizara.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin,User")]
         [HttpPut]
         [Consumes("application/json")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -146,6 +150,7 @@ namespace Knjizara.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin,User")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [HttpGet("dostava/{id_dostava}")]
@@ -160,6 +165,7 @@ namespace Knjizara.Controllers
             return Ok(mapper.Map<PorudzbinaDto>(Porudzbina));
         }
 
+        [Authorize(Roles = "Admin,User")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [HttpGet("korisnik/{id_korisnik}")]
