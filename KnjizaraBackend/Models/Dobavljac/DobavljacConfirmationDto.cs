@@ -4,6 +4,6 @@
     {
         public string naziv_dobavljaca { get; set; }
 
-        public int pib { get; set; }
+        public string pib { get; set; }
     }
 }

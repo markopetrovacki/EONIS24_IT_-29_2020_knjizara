@@ -1,0 +1,67 @@
+<app-header></app-header>
+<ng-container *ngIf="products.length !=0">
+    <div class="container" >
+        <div class="card-table">
+            <div class="cart-product">
+                <table class="table table-responsive">
+                    <thead>
+                        <tr>
+                            <th>Sr.No</th>
+                            <th>Naziv</th>
+                            <th>Slika</th>
+                            <th>Opis</th>
+                            <th>Cena</th>
+                            <th>Kolicina</th>
+                            <th>Ukupno</th>
+                            <th>Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let knjiga of products; let i = index">
+                            <td>{{i+1}}</td>
+                            <td>{{knjiga.naziv_knjige}}</td>
+                            <td><img style="width: 120px;" src="{{knjiga.slika}}" alt=""></td>
+                            <td style="width: 25%;">{{knjiga.opis}}</td>
+                            <th style="width: 12%;">{{knjiga.cena}} Din</th>
+                            <!--<td style="width: 12%;">{{knjiga.kolicina}}</td>-->
+                            <td style="width: 12%;">
+                                <div class="quantity-control">
+                                  <button (click)="decreaseQuantity(knjiga)" class="btn btn-secondary">-</button>
+                                  <input type="text" [value]="knjiga.kolicina" readonly>
+                                  <button (click)="increaseQuantity(knjiga)" class="btn btn-secondary">+</button>
+                                </div>
+                              </td>
+                            <td style="width: 12%;">{{knjiga.total}}</td>
+                            <td>
+                                <button (click)="removeItem(knjiga)" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4"></td>
+                            <td><button (click)="emptycart()" class="btn btn-danger">Empty Cart</button></td>
+                            <td><button routerLink="/products" class="btn btn-primary">Shop More</button></td>
+                            <td><button (click)="openCheckoutModal(3)" class="btn btn-success">Checkout</button></td>
+                            <td><strong>Ukopno: Din {{grandTotal}}</strong></td>
+                        </tr>
+                      
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</ng-container>
+
+
+<ng-container *ngIf="products.length ==0">
+    <div class="container" >
+        <div class="card">
+            <h5 class="card-title">My Cart</h5>
+        </div>
+        <div class="center">
+            <img src="assets/Sve.jpg" alt="Slika">
+            <h4>Your cart is empty!</h4>
+            <h6>Add item to it now</h6>
+            <button routerLink="/products" class="btn btn-primary">Shop Now</button>
+        </div>
+    </div>
+</ng-container>

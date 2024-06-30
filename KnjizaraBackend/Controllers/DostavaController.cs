@@ -136,10 +136,10 @@ namespace Knjizara.Controllers
                 var updatedDostava = dostavaRepository.UpdateDostava(mappedDostava);
 
                 // Map the updated epic to DTO
-                DostavaDto updatedDostavaDto = mapper.Map<DostavaDto>(UpdateDostava);
+                DostavaDto updatedDostavaDto = mapper.Map<DostavaDto>(updatedDostava);
                
                 // Return the updated resource
-                return Ok(updatedDostava);
+                return Ok(updatedDostavaDto);
             }
             catch (KeyNotFoundException)
             {

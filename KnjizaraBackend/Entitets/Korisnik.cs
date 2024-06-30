@@ -10,8 +10,8 @@ namespace Knjizara.Entitets
         [Key]
         [Required]
         public Guid id_korisnik {  get; set; }
-        public string username { get; set; } //= string.Empty;
-        public string pasword { get; set; } //= string.Empty;
+        public string username { get; set; } //= string.Empty;  DA BUDE UNIK DA NE MOGU DVA KORISNIKA SA ISTIM IMENOM
+        public string password { get; set; } //= string.Empty;
 
         [Sieve(CanFilter = true, CanSort = true)] public string ime_korisnika {  get; set; }
 
@@ -21,7 +21,7 @@ namespace Knjizara.Entitets
 
         [Sieve(CanFilter = true, CanSort = true)] public string grad_korisnika { get; set; }
 
-        [Sieve(CanFilter = true, CanSort = true)] public int kontakt_telefon {  get; set; }
+        [Sieve(CanFilter = true, CanSort = true)] public string kontakt_telefon {  get; set; }
 
         [Sieve(CanFilter = true, CanSort = true)] public string status_korisnika { get; set; } 
     }

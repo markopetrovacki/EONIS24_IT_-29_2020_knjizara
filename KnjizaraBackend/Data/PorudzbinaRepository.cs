@@ -90,9 +90,10 @@ namespace Knjizara.Data
             return context.porudzbina.FirstOrDefault(e => e.id == Id);
         }*/
 
-        public Porudzbina GetPorudzbinaByKorisnikId(Guid Id)
+        public List<Porudzbina> GetPorudzbinaByKorisnikId(Guid Id)
         {
-            return context.porudzbina.FirstOrDefault(e => e.id_korisnik == Id);
+            return context.porudzbina.Where(e => e.id_korisnik == Id).ToList();
+            //return context.porudzbina.FirstOrDefault(e => e.id_korisnik == Id);
         }
 
 

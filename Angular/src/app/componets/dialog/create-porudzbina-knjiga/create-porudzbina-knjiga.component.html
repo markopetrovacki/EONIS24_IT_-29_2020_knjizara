@@ -1,0 +1,29 @@
+
+<div class="modal-header">
+    <h5 class="modal-title" *ngIf="action === 1">Create New PorudzbinaKnjiga</h5>
+    <h5 class="modal-title" *ngIf="action === 2">Edit PorudzbinaKnjiga</h5>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <!-- Vaša forma za kreiranje korisnika -->
+    <form [formGroup]="createPorudzbinaKnjigaForm" (ngSubmit)="onSubmit()">
+      <!-- Polja forme -->
+      <div class="form-group">
+        <label for="id_knjige" >Id knjige</label>
+        <input type="text" class="form-control" formControlName="id_knjige" id="id_knjige" required>
+      </div>
+      <div class="form-group">
+        <label for="id_porudzbina">Id porudzbina</label>
+        <input type="text" class="form-control"  formControlName="id_porudzbina" id="id_porudzbina" required>
+      </div>
+      <div class="form-group">
+        <label for="kolicina">Kolicina</label>
+        <input type="text" class="form-control" formControlName="kolicina" id="kolicina" required>
+      </div>
+ 
+      <button type="submit" class="btn btn-primary">'Create'</button>
+    </form>
+  </div>
+  

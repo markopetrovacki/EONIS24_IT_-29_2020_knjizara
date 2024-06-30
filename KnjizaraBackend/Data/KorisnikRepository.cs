@@ -3,6 +3,9 @@ using BCrypt.Net;
 using Knjizara.Entitets;
 using Knjizara.Entitets.Confirmation;
 using Knjizara.Models.Korisnik;
+using Microsoft.EntityFrameworkCore;
+using System.Text.RegularExpressions;
+using System.Text;
 
 namespace Knjizara.Data
 {
@@ -85,7 +88,7 @@ namespace Knjizara.Data
             {
                 if (korisnik[i].username == username) {
                 
-                    if (BCrypt.Net.BCrypt.Verify(password, korisnik[i].pasword))
+                    if (BCrypt.Net.BCrypt.Verify(password, korisnik[i].password))
                     {
                         return korisnik[i];
                     }
@@ -93,6 +96,52 @@ namespace Knjizara.Data
             }
             return null;
             //return context.korisnik.FirstOrDefault(e => e.username == username && BCrypt.Net.BCrypt.Verify(password, e.pasword));
+        }
+
+
+        public Korisnik GetKorisnikByUsername(string username)
+        {
+            List<Korisnik> korisnik = context.korisnik.ToList();
+
+            for (int i = 0; i < korisnik.Count - 1; i++)
+            {
+                if (korisnik[i].username == username)
+                {
+
+
+                    return korisnik[i];
+
+                }
+            }
+            return null;
+            //return context.korisnik.FirstOrDefault(e => e.username == username && BCrypt.Net.BCrypt.Verify(password, e.pasword));
+        }
+
+
+        public Task<bool> CheckUsernameExistAsync(string? username)
+        {
+            return context.korisnik.AnyAsync(x => x.username == username);
+            //throw new NotImplementedException();
+        }
+
+        public async Task<bool> CheckFullNameExistAsync(string firstName, string lastName)
+        {
+
+            return await context.korisnik.AnyAsync(x => x.ime_korisnika == firstName && x.prezime_korisnika == lastName);
+
+        }
+
+
+        public string CheckPasswordStrength(string pass)
+        {
+            StringBuilder sb = new StringBuilder();
+            if (pass.Length < 6)
+                sb.Append("Minimum password length should be 5" + Environment.NewLine);
+            if (!(Regex.IsMatch(pass, "[a-z]") && Regex.IsMatch(pass, "[A-Z]") && Regex.IsMatch(pass, "[0-9]")))
+                sb.Append("Password should be AlphaNumeric" + Environment.NewLine);
+            // if (!Regex.IsMatch(pass, "[<,>,@,!,#,$,%,^,&,*,(,),_,+,\\[,\\],{,},?,:,;,|,',\\,.,/,~,`,-,=]"))
+            //    sb.Append("Password should contain special charcter" + Environment.NewLine);
+            return sb.ToString();
         }
     }
 }

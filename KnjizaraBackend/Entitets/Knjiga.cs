@@ -23,7 +23,8 @@ namespace Knjizara.Entitets
         [Sieve(CanFilter = true, CanSort = true)] public string ime_autora {  get; set; }
 
         [Sieve(CanFilter = true, CanSort = true)] public string prezime_autora { get; set; }
-        
-	    public Guid id_dobavljac {  get; set; }
+
+        public string slika { get; set; }
+        public Guid id_dobavljac {  get; set; }
     }
 }

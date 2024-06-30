@@ -1,0 +1,59 @@
+button.add-btn  {
+    padding: 8px 16px;
+    margin: 5px;
+    font-size: 14px;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+button.delete-btn  {
+    padding: 8px 16px;
+    margin: 5px;
+    font-size: 14px;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: darken(#007bff, 10%);
+  }
+  
+  button:active {
+    background-color: darken(#007bff, 20%);
+  }
+  
+  button:focus {
+    outline: none;
+  }
+  
+  /* Stilovi za dugme za dodavanje */
+  button.add-btn {
+    background-color: #28a745;
+  }
+  
+  button.add-btn:hover {
+    background-color: #218838;
+  }
+  
+  button.add-btn:active {
+    background-color: #1e7e34;
+  }
+  
+  /* Stilovi za dugme za brisanje */
+  button.delete-btn {
+    background-color: #dc3545;
+  }
+  
+  button.delete-btn:hover {
+    background-color: #c82333;
+  }
+  
+  button.delete-btn:active {
+    background-color: #bd2130;
+  }

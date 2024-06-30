@@ -61,6 +61,7 @@ namespace Knjizara.Data
                     existingKnjiga.zanr = knjiga.zanr;
                     existingKnjiga.ime_autora = knjiga.ime_autora;
                     existingKnjiga.prezime_autora = knjiga.prezime_autora;
+                    existingKnjiga.slika = knjiga.slika;
                     existingKnjiga.id_dobavljac = knjiga.id_dobavljac;
 
                     context.SaveChanges(); // Save changes to the database

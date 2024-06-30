@@ -10,9 +10,9 @@
 
         public string drzava { get; set; }
 
-        public int postanski_broj { get; set; }
+        public string postanski_broj { get; set; }
 
-        public int broj_telefona { get; set; }
+        public string broj_telefona { get; set; }
 
         public string ime { get; set; }
     }

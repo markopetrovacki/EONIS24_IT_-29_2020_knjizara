@@ -1,0 +1,51 @@
+<div class="modal-header">
+    <h5 class="modal-title" *ngIf="action === 1">Create New Porudzbina</h5>
+    <h5 class="modal-title" *ngIf="action === 2">Edit Porudzbina</h5>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <!-- Vaša forma za kreiranje korisnika -->
+    <form [formGroup]="createPorudzbinaForm" (ngSubmit)="onSubmit()">
+      <!-- Polja forme -->
+      <div class="form-group" >
+        <label for="datum_kreiranja" >Datum kreiranja</label>
+        <input type="text" class="form-control" formControlName="datum_kreiranja" id="datum_kreiranja" [value]="getFormattedDate(action)" required>
+      </div>
+      <div class="form-group">
+        <label for="ukupna_cena">Ukupna cena</label>
+        <input type="text" class="form-control" formControlName="ukupna_cena" id="ukupna_cena" required>
+      </div>
+   <!--  <div class="form-group">
+        <label for="status_porudzbine">Status porudzbine</label>
+        <input type="text" class="form-control" formControlName="status_porudzbine" id="status_porudzbine" required>
+      </div>--> 
+      <div class="form-group">
+        <label for="status_placanja">Status placanja</label>
+        <input type="text" class="form-control" formControlName="status_placanja" id="status_placanja" required>
+      </div>
+      <div class="form-group">
+        <label for="dobavljac">Dobavljac</label>
+        <input type="text" class="form-control" formControlName="dobavljac" id="dobavljac" required>
+      </div>
+      <div class="form-group">
+        <label for="broj_posiljke">Broj posiljke</label>
+        <input type="text" class="form-control" formControlName="broj_posiljke" id="broj_posiljke" required>
+      </div>
+      <div class="form-group">
+        <label for="rok_isporuke">Rok isporuke</label>
+        <input type="text" class="form-control" formControlName="rok_isporuke" id="rok_isporuke" [value]="getFormattedDate(action)" required>
+      </div>
+      <div class="form-group" *ngIf="action === 1">
+        <label for="id_korisnik">Id korisnik</label>
+        <input type="text" class="form-control" formControlName="id_korisnik" id="id_korisnik" required>
+      </div>
+      <div class="form-group" *ngIf="action === 1">
+        <label for="id_dostava">Id dostava</label>
+        <input type="text" class="form-control" formControlName="id_dostava" id="id_dostava" required>
+      </div>
+      <button type="submit"  class="btn btn-primary">{{ action === 1 ? 'Create' : 'Update' }}</button>
+    </form>
+  </div>
+  

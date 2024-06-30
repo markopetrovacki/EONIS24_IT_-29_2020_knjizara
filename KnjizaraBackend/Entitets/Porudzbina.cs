@@ -15,7 +15,7 @@ namespace Knjizara.Entitets
         [Sieve(CanFilter = true, CanSort = true)] public string status_porudzbine {  get; set; }
         [Sieve(CanFilter = true, CanSort = true)] public string status_placanja { get; set; }
         [Sieve(CanFilter = true, CanSort = true)] public string dobavljac {  get; set; }
-        [Sieve(CanFilter = true, CanSort = true)] public int broj_posiljke {  get; set; }
+        [Sieve(CanFilter = true, CanSort = true)] public string broj_posiljke {  get; set; }
         [Sieve(CanFilter = true, CanSort = true)] public DateTime rok_isporuke { get; set; }
         public Guid id_korisnik { get; set; }
         public Guid id_dostava { get; set; }

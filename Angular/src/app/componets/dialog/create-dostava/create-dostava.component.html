@@ -1,0 +1,45 @@
+
+<div class="modal-header">
+    <h5 class="modal-title" *ngIf="action === 1">Create New Dostava</h5>
+    <h5 class="modal-title" *ngIf="action === 2">Edit Dostava</h5>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <!-- Vaša forma za kreiranje korisnika -->
+    <form [formGroup]="createDostavaForm" (ngSubmit)="onSubmit()">
+      <!-- Polja forme -->
+      <div class="form-group">
+        <label for="adresa_dostave" >Adresa dostave</label>
+        <input type="text" class="form-control" formControlName="adresa_dostave" id="adresa_dostave" required>
+      </div>
+      <div class="form-group">
+        <label for="datum_dostave">Datum dostave</label>
+        <input type="text" class="form-control" type="text" class="form-control"  formControlName="datum_dostave" id="datum_dostave" required>
+      </div>
+      <div class="form-group">
+        <label for="grad">Grad</label>
+        <input type="text" class="form-control" formControlName="grad" id="grad" required>
+      </div>
+      <div class="form-group">
+        <label for="drzava">Drzava</label>
+        <input type="text" class="form-control" formControlName="drzava" id="drzava" required>
+      </div>
+      <div class="form-group">
+        <label for="postanski_broj">Postanski broj</label>
+        <input type="text" class="form-control" formControlName="postanski_broj" id="postanski_broj" required>
+      </div>
+      <div class="form-group">
+        <label for="broj_telefona">Broj telefona</label>
+        <input type="text" class="form-control" formControlName="broj_telefona" id="broj_telefona" required>
+      </div>
+      <div class="form-group">
+        <label for="ime">Ime</label>
+        <input type="text" class="form-control" formControlName="ime" id="ime" required>
+      </div>
+      
+      <button type="submit" class="btn btn-primary">{{ action === 1 ? 'Create' : 'Update' }}</button>
+    </form>
+  </div>
+  

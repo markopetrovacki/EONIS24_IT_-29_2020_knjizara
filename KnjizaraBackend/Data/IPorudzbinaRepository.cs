@@ -13,7 +13,7 @@ namespace Knjizara.Data
         public Porudzbina UpdatePorudzbina(Porudzbina porudzbina);
         public bool SaveChanges();
 
-        public Porudzbina GetPorudzbinaByKorisnikId(Guid Id);
+        public List<Porudzbina> GetPorudzbinaByKorisnikId(Guid Id);
         public Porudzbina GetPorudzbinaByDostavaId(Guid Id);
        // public Porudzbina GetPorudzbinaByKnjigaId(Guid Id);
     }

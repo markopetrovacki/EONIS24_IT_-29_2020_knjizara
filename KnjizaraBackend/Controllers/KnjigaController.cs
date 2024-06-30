@@ -32,7 +32,7 @@ namespace Knjizara.Controllers
             this.sieveProcessor = sieveProcessor;
         }
 
-        [Authorize(Roles = "Admin,User")]
+        //[Authorize(Roles = "Admin,User")]
         [HttpGet]
         [HttpHead] //Podržavamo i HTTP head zahtev koji nam vraća samo zaglavlja u odgovoru    
         [ProducesResponseType(StatusCodes.Status200OK)] //Eksplicitno definišemo šta sve može ova akcija da vrati
@@ -49,7 +49,7 @@ namespace Knjizara.Controllers
             return Ok(mapper.Map<List<KnjigaDto>>(knjiga));
         }
 
-        [Authorize(Roles = "Admin,User")]
+       // [Authorize(Roles = "Admin,User")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [HttpGet("{id_knjige}")]
@@ -137,7 +137,7 @@ namespace Knjizara.Controllers
                 KnjigaDto updatedKnjigaDto = mapper.Map<KnjigaDto>(updatedKnjiga);
 
                 // Return the updated resource
-                return Ok(UpdateKnjiga);
+                return Ok(updatedKnjigaDto);
             }
             catch (KeyNotFoundException)
             {

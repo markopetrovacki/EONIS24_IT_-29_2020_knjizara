@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Sieve.Services;
+using Stripe;
 using Swashbuckle.AspNetCore.Filters;
 using System.Text;
 
@@ -31,6 +32,23 @@ builder.Services.AddSwaggerGen(options =>
     options.OperationFilter<SecurityRequirementsOperationFilter>();
 });
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("MyPolicy", builder =>
+        builder.WithOrigins("http://localhost:4200")
+        // builder.AllowAnyOrigin()
+        .AllowAnyMethod()
+        .AllowAnyHeader()
+        .AllowCredentials());
+
+});
+/*
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowOrigin",
+        builder => builder.WithOrigins("http://localhost:5242"));
+});*/
+
 builder.Services.AddAuthentication().AddJwtBearer(options =>
 {
     options.TokenValidationParameters = new TokenValidationParameters
@@ -47,11 +65,8 @@ builder.Services.AddAuthentication().AddJwtBearer(options =>
 //Dodajte registraciju AutoMapper-a
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowOrigin",
-        builder => builder.WithOrigins("http://localhost:5242"));
-});
+var stripeSettings = builder.Configuration.GetSection("StripeSettings").Get<StripeSettings>();
+StripeConfiguration.ApiKey = stripeSettings.SecretKey;
 
 builder.Services.AddDbContext<KnjizaraDBContext>(options =>
 {
@@ -80,13 +95,17 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseCors("AllowOrigin");
+//app.UseCors("AllowOrigin");
 
 app.UseHttpsRedirection();
 
 app.UseStaticFiles();
 
 app.UseRouting();
+
+app.UseCors("MyPolicy");
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 

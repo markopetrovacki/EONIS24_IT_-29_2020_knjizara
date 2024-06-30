@@ -20,7 +20,7 @@ namespace Knjizara.Controllers
         private readonly IDobavljacRepository dobavljacRepository;
         private readonly LinkGenerator linkGenerator;
         private readonly SieveProcessor sieveProcessor;
-
+        // test
         public DobavljacController(IMapper mapper, IDobavljacRepository dobavljacRepository, LinkGenerator linkGenerator, SieveProcessor sieveProcessor)
         {
             this.mapper = mapper;
@@ -146,7 +146,7 @@ namespace Knjizara.Controllers
 
                 //await loggerService.Log(LogLevel.Information, "UpdateProductBacklog", "Product backlog with id " + productBacklog + " successfully updated.");
                 // Return the updated resource
-                return Ok(updatedDobavljac);
+                return Ok(updatedDobaljvacDto);
             }
             catch (KeyNotFoundException)
             {

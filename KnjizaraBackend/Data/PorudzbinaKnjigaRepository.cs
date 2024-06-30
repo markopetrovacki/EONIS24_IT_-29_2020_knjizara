@@ -45,5 +45,17 @@ namespace Knjizara.Data
         {
             return context.SaveChanges() > 0;
         }
+
+        public List<PorudzbinaKnjiga> GetPorudzbinaKnjigaByPorudzbinaId(Guid id_porudzbina)
+        {
+            return context.porudzbinaKnjiga.Where(e => e.id_porudzbina == id_porudzbina).ToList();
+        }
+
+       
+        public void RemovePorudzbineByPorudzbinaId(Guid id_porudzbina)
+        {
+            var porudzbineZaBrisanje = GetPorudzbinaKnjigaByPorudzbinaId(id_porudzbina);
+            context.RemoveRange(porudzbineZaBrisanje);
+        }
     }
 }

@@ -96,8 +96,9 @@ namespace Knjizara.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [HttpDelete("{id_knjige,id_porudzbina}")]
-        public IActionResult DeletePorudzbinaKnjiga(Guid id_knjige, Guid id_porudzbina)
+        //[HttpDelete("{id_knjige,id_porudzbina}")]
+        [HttpDelete]
+        public IActionResult DeletePorudzbinaKnjiga([FromQuery] Guid id_knjige, [FromQuery] Guid id_porudzbina)
         {
             try
             {
@@ -147,6 +148,50 @@ namespace Knjizara.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Update Error");
             }
         }*/
+
+        [Authorize(Roles = "Admin,User")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [HttpGet("porudzbina/{id_porudzbina}")]
+        public ActionResult<List<PorudzbinaKnjiga>> GetPorudzbinaKnjigaByPorudzbinaId(Guid id_porudzbina)
+        {
+            List<PorudzbinaKnjiga> porudzbinaKnjiga = porudzbinaKnjigaRepository.GetPorudzbinaKnjigaByPorudzbinaId(id_porudzbina);
+
+            if (porudzbinaKnjiga == null || porudzbinaKnjiga.Count == 0)
+            {
+                return NotFound();
+            }
+            // return Ok(mapper.Map<PorudzbinaDto>(Porudzbina));
+
+            //porudzbina = sieveProcessor.Apply<Porudzbina>(id_korisnik, porudzbina.AsQueryable()).ToList();
+            return Ok(mapper.Map<List<PorudzbinaKnjiga>>(porudzbinaKnjiga));
+        }
+
+
+        [Authorize(Roles = "Admin")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [HttpDelete("porudzbina/{id_porudzbina}")]
+        public IActionResult DeletePorudzbineByPorudzbinaId(Guid id_porudzbina)
+        {
+            try
+            {
+                var porudzbine = porudzbinaKnjigaRepository.GetPorudzbinaKnjigaByPorudzbinaId(id_porudzbina);
+                if (porudzbine == null || porudzbine.Count == 0)
+                {
+                    return NotFound();
+                }
+
+                porudzbinaKnjigaRepository.RemovePorudzbineByPorudzbinaId(id_porudzbina);
+                porudzbinaKnjigaRepository.SaveChanges();
+                return StatusCode(StatusCodes.Status204NoContent, "Uspesno obrisane porudzbine knjiga!");
+            }
+            catch
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Delete Error");
+            }
+        }
 
     }
 }

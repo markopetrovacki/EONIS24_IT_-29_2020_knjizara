@@ -71,7 +71,7 @@ namespace Knjizara.Controllers
         [Consumes("application/json")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public ActionResult<KorisnikConfirmation> CreateKorisnik([FromBody] KorisnikCreationDto korisnik)
+        public async Task<ActionResult<KorisnikConfirmation>> CreateKorisnik([FromBody] KorisnikCreationDto korisnik)
         {
             try
             {
@@ -80,15 +80,31 @@ namespace Knjizara.Controllers
                     return BadRequest(ModelState); // Vraćajte 400 Bad Request za validacione greške
                 }
 
-                string passwordHash = BCrypt.Net.BCrypt.HashPassword(korisnik.pasword);
-                korisnik.pasword = passwordHash;
+                //check fullname
+                if (await korisnikRepository.CheckFullNameExistAsync(korisnik.ime_korisnika, korisnik.prezime_korisnika))
+                    return BadRequest(new { Message = "firstName and lastName already exist" });
+
+                //check username
+                if (await korisnikRepository.CheckUsernameExistAsync(korisnik.username))
+                    return BadRequest(new { Message = "Username Already Exist" });
+
+                var passMessage = korisnikRepository.CheckPasswordStrength(korisnik.password);
+                if (!string.IsNullOrEmpty(passMessage))
+                    return BadRequest(new { Message = passMessage.ToString() });
+
+                string passwordHash = BCrypt.Net.BCrypt.HashPassword(korisnik.password);
+                korisnik.password = passwordHash;
 
                 Korisnik mappedKorisnik = mapper.Map<Korisnik>(korisnik);
                 KorisnikConfirmation confirmationKorisnik = korisnikRepository.AddKorisnik(mappedKorisnik);             
                 korisnikRepository.SaveChanges();
-                
 
-                return Ok(confirmationKorisnik);
+                return Ok(new
+                {
+                    Confirmation = confirmationKorisnik,
+                    Message = "Korisnik je uspešno dodat"
+                });
+                //return Ok(confirmationKorisnik);
                
                 /*string location = linkGenerator.GetPathByAction("GetKorisnikId", "Korisnik", new { id_korisnik = confirmationKorisnik.id_korisnik });
                 return Created(location, mapper.Map<KorisnikConfirmationDto>(confirmationKorisnik));*/
@@ -130,7 +146,7 @@ namespace Knjizara.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public ActionResult<KorisnikDto> UpdateKorisnik(KorisnikUpdateDto korisnik)
+        public async Task<ActionResult<KorisnikDto>> UpdateKorisnik(KorisnikUpdateDto korisnik)
         {
             try
             {
@@ -144,7 +160,12 @@ namespace Knjizara.Controllers
                 KorisnikDto updatedKorisnikDto = mapper.Map<KorisnikDto>(updatedKorisnik);
 
                 // Return the updated resource
-                return Ok(UpdateKorisnik);
+                return Ok(new
+                {
+                    UpdateKorisnik = updatedKorisnikDto,
+                    Message = "Korisnik je uspešno azuriran"
+                });
+                //return Ok(UpdateKorisnik);
             }
             catch (KeyNotFoundException)
             {
@@ -159,7 +180,7 @@ namespace Knjizara.Controllers
         
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [HttpGet("korisnik/{id_korisnik}")]
+        [HttpGet("korisnik")]
         public ActionResult<Korisnik> GetKorisnikByUsernameAndPassword(string username, string password)
         {
             var korisnik = korisnikRepository.GetKorisnikByUsernameAndPassword(username, password);
@@ -172,6 +193,23 @@ namespace Knjizara.Controllers
             return Ok(korisnik);
         }
 
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [HttpGet("user")]
+        public ActionResult<Korisnik> GetKorisnikByUsername(string username)
+        {
+            var korisnik = korisnikRepository.GetKorisnikByUsername(username);
+
+            if (korisnik == null)
+            {
+                return NotFound();
+            }
+
+            var korisnikDto = mapper.Map<KorisnikDto>(korisnik);
+            return Ok(korisnikDto);
+
+            //return Ok(korisnik);
+        }
 
     }
 }

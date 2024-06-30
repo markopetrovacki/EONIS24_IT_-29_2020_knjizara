@@ -16,6 +16,8 @@
 
         public string prezime_autora { get; set; }
 
+        public string slika { get; set; }
+
         public Guid id_dobavljac { get; set; }
     }
 }

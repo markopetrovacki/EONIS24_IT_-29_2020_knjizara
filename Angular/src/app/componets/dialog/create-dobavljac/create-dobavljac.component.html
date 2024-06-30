@@ -1,0 +1,33 @@
+
+<div class="modal-header">
+    <h5 class="modal-title" *ngIf="action === 1">Create New dobavljac</h5>
+    <h5 class="modal-title" *ngIf="action === 2">Edit dobavljac</h5>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <!-- Vaša forma za kreiranje korisnika -->
+    <form [formGroup]="createDobavljacForm" (ngSubmit)="onSubmit()">
+      <!-- Polja forme -->
+      <div class="form-group">
+        <label for="naziv_dobavljaca" >naziv dobavljaca</label>
+        <input type="text" class="form-control" formControlName="naziv_dobavljaca" id="naziv_dobavljaca" required>
+      </div>
+      <div class="form-group">
+        <label for="pib">pib</label>
+        <input type="text" class="form-control" formControlName="pib" id="pib" required>
+      </div>
+      <div class="form-group">
+        <label for="telefon_dobavljaca">telefon dobavljaca</label>
+        <input type="text" class="form-control" formControlName="telefon_dobavljaca" id="telefon_dobavljaca" required>
+      </div>
+      <div class="form-group">
+        <label for="adresa_dobavljaca">adresa_dobavljaca</label>
+        <input type="text" class="form-control" formControlName="adresa_dobavljaca" id="adresa_dobavljaca" required>
+      </div>
+      
+      <button type="submit" class="btn btn-primary">{{ action === 1 ? 'Create' : 'Update' }}</button>
+    </form>
+  </div>
+  

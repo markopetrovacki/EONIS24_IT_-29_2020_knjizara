@@ -138,7 +138,7 @@ namespace Knjizara.Controllers
                 PorudzbinaDto updatedPorudzbinaDto = mapper.Map<PorudzbinaDto>(updatedPorudzbina);
 
                 // Return the updated resource
-                return Ok(UpdatePorudzbina);
+                return Ok(updatedPorudzbinaDto);
             }
             catch (KeyNotFoundException)
             {
@@ -169,15 +169,15 @@ namespace Knjizara.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [HttpGet("korisnik/{id_korisnik}")]
-        public ActionResult<PorudzbinaDto> GetPorudzbinaByKorisnikId(Guid id_korisnik)
+        public ActionResult<List<PorudzbinaDto>> GetPorudzbinaByKorisnikId(Guid id_korisnik)
         {
-            var Porudzbina = porudzbinaRepository.GetPorudzbinaByKorisnikId(id_korisnik);
+            List <Porudzbina> porudzbina = porudzbinaRepository.GetPorudzbinaByKorisnikId(id_korisnik);
 
-            if (Porudzbina == null)
+            if (porudzbina == null || porudzbina.Count == 0)
             {
                 return NotFound();
             }
-            return Ok(mapper.Map<PorudzbinaDto>(Porudzbina));
+            return Ok(mapper.Map<List<Porudzbina>>(porudzbina));
         }
     }
 }

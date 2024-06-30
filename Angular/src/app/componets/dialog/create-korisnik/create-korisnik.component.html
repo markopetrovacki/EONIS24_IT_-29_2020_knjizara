@@ -1,0 +1,104 @@
+<!--
+<div class="modal" tabindex="-1" role="dialog" style="display: block;">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Create New User</h5>
+          <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <form [formGroup]="createKorisnikForm" (ngSubmit)="onSubmit()">
+                <div>
+                <label for="username">Username</label>
+                <input id="username" formControlName="username" />
+                </div>
+                <div>
+                <label for="password">Password</label>
+                <input id="password" type="password" formControlName="password" />
+                </div>
+                <div>
+                <label for="ime_korisnika">First Name</label>
+                <input id="ime_korisnika" formControlName="ime_korisnika" />
+                </div>
+                <div>
+                <label for="prezime_korisnika">Last Name</label>
+                <input id="prezime_korisnika" formControlName="prezime_korisnika" />
+                </div>
+                <div>
+                <label for="adresa_korisnika">Address</label>
+                <input id="adresa_korisnika" formControlName="adresa_korisnika" />
+                </div>
+                <div>
+                <label for="grad_korisnika">City</label>
+                <input id="grad_korisnika" formControlName="grad_korisnika" />
+                </div>
+                <div>
+                <label for="kontakt_telefon">Contact Phone</label>
+                <input id="kontakt_telefon" formControlName="kontakt_telefon" />
+                </div>
+                <div>
+                <label for="status_korisnika">Status</label>
+                <input id="status_korisnika" formControlName="status_korisnika" />
+                </div>
+                <!--<button type="submit">Create User</button>-->
+       <!--  </form>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" (click)="onSubmit()">Create</button>
+        </div>
+    </div>
+    </div>
+</div>-->
+
+
+<div class="modal-header">
+  <h5 class="modal-title" *ngIf="action === 1">Create New User</h5>
+  <h5 class="modal-title" *ngIf="action === 2">Edit User</h5>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <!-- Vaša forma za kreiranje korisnika -->
+  <form [formGroup]="createKorisnikForm" (ngSubmit)="onSubmit()">
+    <!-- Polja forme -->
+    <div class="form-group"  *ngIf="action === 1">
+      <label for="username" >Username</label>
+      <input type="text" class="form-control" formControlName="username" id="username" required>
+    </div>
+    <div class="form-group"  *ngIf="action === 1">
+      <label for="password">Password</label>
+      <input type="text" class="form-control" type="text" class="form-control"  formControlName="password" id="password" required>
+    </div>
+    <div class="form-group">
+      <label for="ime_korisnika">Ime korisnika</label>
+      <input type="text" class="form-control" formControlName="ime_korisnika" id="ime_korisnika" required>
+    </div>
+    <div class="form-group">
+      <label for="prezime_korisnika">Prezime korisnika</label>
+      <input type="text" class="form-control" formControlName="prezime_korisnika" id="prezime_korisnika" required>
+    </div>
+    <div class="form-group">
+      <label for="adresa_korisnika">Adresa korisnika</label>
+      <input type="text" class="form-control" formControlName="adresa_korisnika" id="adresa_korisnika" required>
+    </div>
+    <div class="form-group">
+      <label for="grad_korisnika">Grad korisnika</label>
+      <input type="text" class="form-control" formControlName="grad_korisnika" id="grad_korisnika" required>
+    </div>
+    <div class="form-group">
+      <label for="kontakt_telefon">Kontakt telefon</label>
+      <input type="text" class="form-control" formControlName="kontakt_telefon" id="kontakt_telefon" required>
+    </div>
+    <div class="form-group">
+      <label for="status_korisnika">Status korisnika</label>
+      <input type="text" class="form-control" formControlName="status_korisnika" id="status_korisnika" required>
+    </div>
+    <button type="submit" class="btn btn-primary">{{ action === 1 ? 'Create' : 'Update' }}</button>
+  </form>
+</div>
+

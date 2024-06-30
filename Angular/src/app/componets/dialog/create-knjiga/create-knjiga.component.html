@@ -1,0 +1,51 @@
+
+<div class="modal-header">
+    <h5 class="modal-title" *ngIf="action === 1">Create New Knjige</h5>
+    <h5 class="modal-title" *ngIf="action === 2">Edit Knjige</h5>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <!-- Vaša forma za kreiranje korisnika -->
+    <form [formGroup]="createKnjigaForm" (ngSubmit)="onSubmit()">
+      <!-- Polja forme -->
+      <div class="form-group" >
+        <label for="naziv_knjige" >Naziv knjige</label>
+        <input type="text" class="form-control" formControlName="naziv_knjige" id="naziv_knjige" required>
+      </div>
+      <div class="form-group" >
+        <label for="opis">Opis</label>
+        <input type="text" class="form-control"  formControlName="opis" id="opis" required>
+      </div>
+      <div class="form-group">
+        <label for="stanje_na_lageru">Stanje na lageru</label>
+        <input type="text" class="form-control" formControlName="stanje_na_lageru" id="stanje_na_lageru" required>
+      </div>
+      <div class="form-group">
+        <label for="cena">Cena</label>
+        <input type="text" class="form-control" formControlName="cena" id="cena" required>
+      </div>
+      <div class="form-group">
+        <label for="zanr">Zanr</label>
+        <input type="text" class="form-control" formControlName="zanr" id="zanr" required>
+      </div>
+      <div class="form-group">
+        <label for="ime_autora">Ime autora</label>
+        <input type="text" class="form-control" formControlName="ime_autora" id="ime_autora" required>
+      </div>
+      <div class="form-group">
+        <label for="prezime_autora">Prezime_autora</label>
+        <input type="text" class="form-control" formControlName="prezime_autora" id="prezime_autora" required>
+      </div>
+      <div class="form-group">
+        <label for="slika">Slika</label>
+        <input type="text" class="form-control" formControlName="slika" id="slika" required>
+      </div>
+      <div class="form-group">
+        <label for="id_dobavljac">Id dobavljaca</label>
+        <input type="text" class="form-control" formControlName="id_dobavljac" id="id_dobavljac" required>
+      </div>
+      <button type="submit" class="btn btn-primary">{{ action === 1 ? 'Create' : 'Update' }}</button>
+    </form>
+  </div>

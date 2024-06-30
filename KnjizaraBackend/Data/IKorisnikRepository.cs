@@ -14,5 +14,10 @@ namespace Knjizara.Data
         public bool SaveChanges();
 
         public Korisnik GetKorisnikByUsernameAndPassword(string username, string password);
+        public Korisnik GetKorisnikByUsername(string username);
+        public Task<bool> CheckUsernameExistAsync(string? username);
+        public string CheckPasswordStrength(string pass);
+        public Task<bool> CheckFullNameExistAsync(string firstName, string lastName);
+
     }
 }

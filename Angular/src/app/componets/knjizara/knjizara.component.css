@@ -1,0 +1,98 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+}
+
+h1, h2 {
+    color: #333;
+}
+
+p {
+    color: #8a8a8a;
+}
+
+/* Hero sekcija */
+.hero-section {
+
+    background-size: cover;
+    background-position: center;
+    color: #fff;
+    text-align: center;
+    padding: 100px 20px;
+}
+
+.hero-content {
+    max-width: 600px;
+    margin: auto;
+    background-color: rgba(0, 0, 0, 0.6); /* Tamna prozirna pozadina */
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.hero-content h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+.hero-content p {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+.btn-primary {
+    background-color: #e67e22;
+    color: #fff;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.btn-primary:hover {
+    background-color: #d35400;
+}
+
+/* O Nama sekcija */
+.about-section {
+    padding: 50px 20px;
+    background-color: #fff;
+    text-align: center;
+}
+
+.about-section h2 {
+    margin-bottom: 30px;
+    font-size: 28px;
+}
+
+.about-section p {
+    font-size: 18px;
+    max-width: 800px;
+    margin: auto;
+}
+
+/* Kontakt sekcija */
+.contact-section {
+    padding: 50px 20px;
+    background-color: #f4f4f4;
+    text-align: center;
+}
+
+.contact-section h2 {
+    margin-bottom: 30px;
+    font-size: 28px;
+}
+
+.contact-section p {
+    font-size: 18px;
+}
+
+.contact-section a {
+    color: #3498db;
+    text-decoration: none;
+}
+
+.contact-section a:hover {
+    text-decoration: underline;
+}

@@ -12,7 +12,7 @@
 
         public string dobavljac { get; set; }
 
-        public int broj_posiljke { get; set; }
+        public string broj_posiljke { get; set; }
 
         public DateTime rok_isporuke { get; set; }
 

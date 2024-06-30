@@ -12,9 +12,9 @@ namespace Knjizara.Entitets
 
     [Sieve(CanFilter =true, CanSort = true)] public string naziv_dobavljaca { get; set; }
 
-    [Sieve(CanFilter = true, CanSort = true)] public int pib {  get; set; }
+    [Sieve(CanFilter = true, CanSort = true)] public string pib {  get; set; }
 
-    [Sieve(CanFilter = true, CanSort = true)] public int telefon_dobavljaca { get; set; }
+    [Sieve(CanFilter = true, CanSort = true)] public string telefon_dobavljaca { get; set; }
 
     [Sieve(CanFilter = true, CanSort = true)] public string adresa_dobavljaca { get; set; }
 

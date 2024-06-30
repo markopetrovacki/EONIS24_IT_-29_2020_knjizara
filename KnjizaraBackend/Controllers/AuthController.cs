@@ -36,12 +36,17 @@ namespace KnjizaraBackend.Controllers
                  return BadRequest("Wrong name");
              }*/
             var username = request.username;
-            var password = request.passwordHash;
+            var password = request.password;
             Korisnik korisnik = korisnikRepository.GetKorisnikByUsernameAndPassword(username, password);
             if (korisnik != null)
             {
                 string token = CreateToken(korisnik);
-                return Ok(token);
+                //return Ok(token);
+                return Ok(new
+                {
+                    Token = token,
+                    Message = "Login success"
+                });
             }
             
             return NotFound();
@@ -50,8 +55,10 @@ namespace KnjizaraBackend.Controllers
         private string CreateToken(Korisnik korisnik)
         {
             List<Claim> claims = new List<Claim> {
-                new Claim(ClaimTypes.Name, korisnik.username),
-                new Claim(ClaimTypes.Role, korisnik.status_korisnika),
+                //new Claim(ClaimTypes.Name, korisnik.username),
+                new Claim("name", korisnik.username),
+                //new Claim(ClaimTypes.Role, korisnik.status_korisnika),
+                new Claim("role", korisnik.status_korisnika)
               //  new Claim(ClaimTypes.Role, "User") "Admin"
             };
 

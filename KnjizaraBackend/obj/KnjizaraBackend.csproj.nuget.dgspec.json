@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\user\\Desktop\\KnjizaraProjekat\\KnjizaraBackend\\KnjizaraBackend\\KnjizaraBackend.csproj": {}
+    "C:\\Marko\\EONIS24_IT_-29_2020_knjizara\\KnjizaraBackend\\KnjizaraBackend.csproj": {}
   },
   "projects": {
-    "C:\\Users\\user\\Desktop\\KnjizaraProjekat\\KnjizaraBackend\\KnjizaraBackend\\KnjizaraBackend.csproj": {
+    "C:\\Marko\\EONIS24_IT_-29_2020_knjizara\\KnjizaraBackend\\KnjizaraBackend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\user\\Desktop\\KnjizaraProjekat\\KnjizaraBackend\\KnjizaraBackend\\KnjizaraBackend.csproj",
+        "projectUniqueName": "C:\\Marko\\EONIS24_IT_-29_2020_knjizara\\KnjizaraBackend\\KnjizaraBackend.csproj",
         "projectName": "KnjizaraBackend",
-        "projectPath": "C:\\Users\\user\\Desktop\\KnjizaraProjekat\\KnjizaraBackend\\KnjizaraBackend\\KnjizaraBackend.csproj",
+        "projectPath": "C:\\Marko\\EONIS24_IT_-29_2020_knjizara\\KnjizaraBackend\\KnjizaraBackend.csproj",
         "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\user\\Desktop\\KnjizaraProjekat\\KnjizaraBackend\\KnjizaraBackend\\obj\\",
+        "outputPath": "C:\\Marko\\EONIS24_IT_-29_2020_knjizara\\KnjizaraBackend\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -22,6 +22,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -51,6 +52,14 @@
             "BCrypt.Net-Next": {
               "target": "Package",
               "version": "[4.0.3, )"
+            },
+            "MediatR": {
+              "target": "Package",
+              "version": "[12.3.0, )"
+            },
+            "MediatR.Extensions.Microsoft.DependencyInjection": {
+              "target": "Package",
+              "version": "[11.1.0, )"
             },
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",
@@ -90,6 +99,10 @@
               "target": "Package",
               "version": "[2.5.5, )"
             },
+            "Stripe.net": {
+              "target": "Package",
+              "version": "[45.0.0, )"
+            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.5.0, )"
@@ -114,6 +127,24 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[7.0.15, 7.0.15]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Host.win-x64",
+              "version": "[7.0.15, 7.0.15]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[7.0.15, 7.0.15]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Ref",
+              "version": "[7.0.15, 7.0.15]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"

@@ -12,7 +12,7 @@
 
         public string grad_korisnika { get; set; }
 
-        public int kontakt_telefon { get; set; }
+        public string kontakt_telefon { get; set; }
 
         public string status_korisnika { get; set; }
 
